@@ -1,4 +1,4 @@
-package com.github.fabriciolfj.payment_card;
+package com.github.fabriciolfj.paymentcard;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

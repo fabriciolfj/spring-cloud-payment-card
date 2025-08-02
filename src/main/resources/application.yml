@@ -11,17 +11,27 @@ server:
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 15s
-  application:
-    name: catalog-service
-  cloud:
-    config:
-      enabled: true
-      uri: http://localhost:8888
-      request-connect-timeout: 5000
-      request-read-timeout: 5000
-      fail-fast: false
-      retry:
-        max-attempts: 6
-        initial-interval: 1000
-        max-interval: 2000
-        multiplier: 1.1
+  datasource:
+    username: root
+    password: root
+    url: jdbc:postgresql://localhost:5432/postgres
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      connection-timeout: 2000
+      idle-timeout: 10000
+      validation-timeout: 5000
+      connection-init-sql: "SELECT 1"
+  flyway:
+    locations:
+      - db/migration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "metrics,health"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
