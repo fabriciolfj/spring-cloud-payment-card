@@ -1,9 +1,11 @@
 package com.github.fabriciolfj.paymentcard.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
+@Data
 public class PaymentRequest {
 
     @NotNull(message = "{payment.amount.required}")

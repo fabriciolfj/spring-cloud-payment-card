@@ -1,17 +1,16 @@
 package com.github.fabriciolfj.paymentcard.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
+@Builder
 @Entity
 @Table(name = "payment")
 @ToString
@@ -45,4 +44,12 @@ public class PaymentEntity {
     @Version
     @Column(name = "version")
     private Long version;
+
+    public void addLogs(final PaymentLogsEntity logsEntity) {
+        if (this.logs == null) {
+            this.logs = new HashSet<>();
+        }
+
+        this.logs.add(logsEntity);
+    }
 }
