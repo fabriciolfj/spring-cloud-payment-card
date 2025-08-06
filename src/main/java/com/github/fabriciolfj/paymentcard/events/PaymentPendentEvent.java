@@ -1,4 +1,4 @@
-package com.github.fabriciolfj.paymentcard.model;
+package com.github.fabriciolfj.paymentcard.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,14 +8,15 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class PaymentSummary {
+public class PaymentPendentEvent {
 
+    private String code;
     private LocalDateTime date;
-    private BigDecimal amount;
     private String customer;
     private String orderId;
+    private BigDecimal amount;
 }

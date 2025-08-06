@@ -3,10 +3,11 @@ spring:
     timeout-per-shutdown-phase: 15s
   application:
     name: payment-card
+  config:
+    import: configserver:http://localhost:8888
   cloud:
     config:
       enabled: true
-      uri: http://localhost:8888
       request-connect-timeout: 5000
       request-read-timeout: 5000
       fail-fast: false
