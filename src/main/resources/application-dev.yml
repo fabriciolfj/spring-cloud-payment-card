@@ -1,0 +1,59 @@
+server:
+  port: 8081
+  shutdown: graceful
+  tomcat:
+    connection-timeout: 2s
+    keep-alive-timeout: 15s
+    threads:
+      max: 50
+      min-spare: 5
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
+  cloud:
+    stream:
+      kafka:
+        streams:
+          binder:
+            transaction:
+              transaction-id-prefix: tx-
+            configuration:
+              isolation.level: read_committed
+              retries: 1
+              acks: all
+              processing.guarantee: exactly_once
+  kafka:
+    bootstrap-servers:
+      - localhost:29092
+      - localhost:29093
+      - localhost:29094
+  datasource:
+    username: root
+    password: root
+    url: jdbc:postgresql://localhost:5432/postgres
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      connection-timeout: 2000
+      idle-timeout: 10000
+      validation-timeout: 5000
+      connection-init-sql: "SELECT 1"
+  flyway:
+    locations:
+      - db/migration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "metrics,health"
+  metrics:
+    export:
+      enabled: true
+
+key:
+  value: test
+
+topic:
+  process-fraud: process-fraud
