@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 public class FraudReturnListener {
 
     @Bean
-    public Consumer<String> processReturnFraud() {
+    public Consumer<String> transactionProcessed() {
         return event -> log.info("receive event return fraud " + event);
     }
 }
