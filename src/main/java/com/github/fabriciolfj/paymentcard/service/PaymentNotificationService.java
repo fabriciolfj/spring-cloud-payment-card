@@ -22,7 +22,7 @@ import static com.github.fabriciolfj.paymentcard.mapper.PaymentPendentMapper.toE
 public class PaymentNotificationService {
 
     @Value("${topic.process-fraud}")
-    private final String topic;
+    private String topic;
     private final StreamBridge streamBridge;
 
     public PaymentEntity execute(final PaymentEntity entity) {
