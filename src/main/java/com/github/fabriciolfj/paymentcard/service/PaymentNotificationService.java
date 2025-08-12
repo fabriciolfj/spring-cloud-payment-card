@@ -1,5 +1,6 @@
 package com.github.fabriciolfj.paymentcard.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fabriciolfj.paymentcard.entity.PaymentEntity;
 import com.github.fabriciolfj.paymentcard.events.PaymentPendentEvent;
 import com.github.fabriciolfj.paymentcard.handler.exceptions.NotificationException;
