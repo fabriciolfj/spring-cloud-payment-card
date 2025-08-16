@@ -3,7 +3,7 @@ package com.github.fabriciolfj.paymentcard.controller;
 import com.github.fabriciolfj.paymentcard.dto.PaymentCreateResponse;
 import com.github.fabriciolfj.paymentcard.dto.PaymentRequest;
 import com.github.fabriciolfj.paymentcard.model.PaymentSummary;
-import com.github.fabriciolfj.paymentcard.service.FindPaymentService;
+import com.github.fabriciolfj.paymentcard.service.FindSummaryPaymentService;
 import com.github.fabriciolfj.paymentcard.service.PaymentCreateService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +23,7 @@ import static com.github.fabriciolfj.paymentcard.mapper.PaymentRequestMapper.toE
 public class PaymentController {
 
     private final PaymentCreateService paymentCreateService;
-    private final FindPaymentService findPaymentService;
+    private final FindSummaryPaymentService findSummaryPaymentService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,6 +38,6 @@ public class PaymentController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PaymentSummary getPayment(@PathVariable @NotNull final String code) {
         log.info("code received {}", code);
-        return findPaymentService.findByCode(code);
+        return findSummaryPaymentService.findByCode(code);
     }
 }

@@ -30,6 +30,18 @@ public class PaymentCreateService {
                 .orElseThrow(PaymentNotFoundException::new);
     }
 
+    public PaymentEntity save(final PaymentEntity entity) {
+        try {
+            final var result = repository.save(entity);
+
+            log.info("payment saved {}", entity.getCode());
+            return result;
+        } catch (Exception e) {
+            log.error("fail save payment {}, cause {}", entity.getCode(), e.getMessage());
+            throw new PaymentSaveException();
+        }
+    }
+
     private PaymentEntity validatePayment(final PaymentEntity entity) {
         var result = paymentValidationService.execute(entity);
 
@@ -42,17 +54,5 @@ public class PaymentCreateService {
 
         log.info("payment notification success {}", entity.getCode());
         return result;
-    }
-
-    private PaymentEntity save(final PaymentEntity entity) {
-        try {
-            final var result = repository.save(entity);
-
-            log.info("payment saved {}", entity.getCode());
-            return result;
-        } catch (Exception e) {
-            log.error("fail save payment {}, cause {}", entity.getCode(), e.getMessage());
-            throw new PaymentSaveException();
-        }
     }
 }

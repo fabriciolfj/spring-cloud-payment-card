@@ -17,6 +17,8 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentEntity {
 
     @EqualsAndHashCode.Include
@@ -33,8 +35,9 @@ public class PaymentEntity {
     private String customerId;
     @Column(name = "order_id", nullable = false)
     private String orderId;
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "paymentEntity")
-    private Set<PaymentLogsEntity> logs;
+    @JoinColumn(name = "payment_id", nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<PaymentLogsEntity> logs = new HashSet<>();
     @UpdateTimestamp
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;

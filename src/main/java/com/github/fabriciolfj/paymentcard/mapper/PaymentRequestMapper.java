@@ -19,7 +19,7 @@ public class PaymentRequestMapper {
                 .customerId(dto.getCustomerId())
                 .build();
 
-        entity.addLogs(PaymentLogsEntityMapper.toEntity(entity, StatusPayment.PENDING));
+        entity.addLogs(PaymentLogsEntityMapper.toEntity(StatusPayment.PENDING));
         return entity;
     }
 }

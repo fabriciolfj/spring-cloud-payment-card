@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
@@ -14,6 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PaymentLogsEntity {
 
@@ -29,9 +29,6 @@ public class PaymentLogsEntity {
     @CreationTimestamp
     @Column(name = "date_create")
     private LocalDateTime dateCreate;
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
-    private PaymentEntity paymentEntity;
     @Version
     @Column(name = "version")
     private Long version;
