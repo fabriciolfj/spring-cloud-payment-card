@@ -2,6 +2,7 @@ package com.github.fabriciolfj.paymentcard.service;
 
 import com.github.fabriciolfj.paymentcard.clients.FraudClient;
 import com.github.fabriciolfj.paymentcard.constants.QuerySQLConstants;
+import com.github.fabriciolfj.paymentcard.handler.exceptions.PaymentNotFoundException;
 import com.github.fabriciolfj.paymentcard.model.PaymentSummary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +27,13 @@ public class FindSummaryPaymentService {
         var payment = jdbcClient.sql(result)
                 .param(code)
                 .query(new PaymentRowMapper())
-                .single();
+                .optional();
+
+        if (payment.isEmpty()) {
+            throw new PaymentNotFoundException();
+        }
 
         var fraud = fraudClient.findByCode(code);
-        return payment.updateDataFraud(fraud);
+        return payment.get().updateDataFraud(fraud);
     }
 }

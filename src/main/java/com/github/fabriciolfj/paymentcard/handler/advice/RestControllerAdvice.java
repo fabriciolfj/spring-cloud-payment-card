@@ -44,6 +44,15 @@ public class RestControllerAdvice {
                         .build());
     }
 
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public ResponseEntity handlePaymentNotFoundException(final PaymentNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorDTO.builder()
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .message(e.getMessage())
+                        .build());
+    }
+
     @ExceptionHandler(StatusPaymentNotFoundException.class)
     public ResponseEntity handleStatusPaymentNotFoundException(final StatusPaymentNotFoundException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
