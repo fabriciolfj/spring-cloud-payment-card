@@ -3,9 +3,7 @@ package com.github.fabriciolfj.paymentcard.handler.advice;
 
 import com.github.fabriciolfj.paymentcard.handler.dto.ErrorDTO;
 import com.github.fabriciolfj.paymentcard.handler.dto.ErrorDetailsDTO;
-import com.github.fabriciolfj.paymentcard.handler.exceptions.CardTokenInvalidException;
-import com.github.fabriciolfj.paymentcard.handler.exceptions.PaymentSaveException;
-import com.github.fabriciolfj.paymentcard.handler.exceptions.StatusPaymentNotFoundException;
+import com.github.fabriciolfj.paymentcard.handler.exceptions.*;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -27,6 +25,24 @@ public class RestControllerAdvice {
     private final MessageSource messageSource;
 
     private static final String MESSAGE_VALIDATION = "validação dos campos da requisição";
+
+    @ExceptionHandler(FraudNotfoundException.class)
+    public ResponseEntity handleFraudNotfoundException(final FraudNotfoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorDTO.builder()
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .message(e.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(FraudFailException.class)
+    public ResponseEntity handleFraudFailException(final FraudFailException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorDTO.builder()
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .message(e.getMessage())
+                        .build());
+    }
 
     @ExceptionHandler(StatusPaymentNotFoundException.class)
     public ResponseEntity handleStatusPaymentNotFoundException(final StatusPaymentNotFoundException e) {

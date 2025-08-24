@@ -1,5 +1,6 @@
 package com.github.fabriciolfj.paymentcard.model;
 
+import com.github.fabriciolfj.paymentcard.clients.FraudResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,11 @@ public class PaymentSummary {
     private BigDecimal amount;
     private String customer;
     private String orderId;
+    private FraudResponse fraud;
+
+
+    public PaymentSummary updateDataFraud(final FraudResponse fraud) {
+        this.fraud = fraud;
+        return this;
+    }
 }

@@ -1,5 +1,6 @@
 package com.github.fabriciolfj.paymentcard.service;
 
+import com.github.fabriciolfj.paymentcard.clients.FraudClient;
 import com.github.fabriciolfj.paymentcard.constants.QuerySQLConstants;
 import com.github.fabriciolfj.paymentcard.model.PaymentSummary;
 import lombok.RequiredArgsConstructor;
@@ -15,15 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class FindSummaryPaymentService {
 
     private final JdbcClient jdbcClient;
+    private final FraudClient fraudClient;
 
     @Transactional(readOnly = true, propagation = Propagation.NEVER)
     public PaymentSummary findByCode(final String code) {
         var result = QuerySQLConstants.QUERY_SUMMARY_PAYMENT;
         log.info("query {}", result);
 
-        return jdbcClient.sql(result)
+        var payment = jdbcClient.sql(result)
                 .param(code)
                 .query(new PaymentRowMapper())
                 .single();
+
+        var fraud = fraudClient.findByCode(code);
+        return payment.updateDataFraud(fraud);
     }
 }

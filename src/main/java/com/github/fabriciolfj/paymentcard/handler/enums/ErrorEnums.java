@@ -4,6 +4,8 @@ import java.util.ResourceBundle;
 
 public enum ErrorEnums {
 
+    FRAUD_NOT_FOUNd,
+    FRAUD_ERROR,
     CARD_TOKEN_EXCEPTION,
     STATUS_PAYMENT_EXCEPTION,
     NOTIFICATION_EXCEPTION,
