@@ -29,7 +29,8 @@ public class FraudClientConfig {
 
     @Bean
     public FraudClient restClient() {
-        var client = RestClient.builder().baseUrl(url)
+        var client = RestClient.builder()
+                .baseUrl(url)
                 .requestFactory(clientHttpRequestFactory())
                 .defaultStatusHandler(HttpStatusCode::is4xxClientError, this::handle4xxError)
                 .defaultStatusHandler(HttpStatusCode::is5xxServerError, this::handle4xxError)
