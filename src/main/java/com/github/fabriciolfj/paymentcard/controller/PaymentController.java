@@ -6,6 +6,7 @@ import com.github.fabriciolfj.paymentcard.model.PaymentSummary;
 import com.github.fabriciolfj.paymentcard.service.FindSummaryPaymentService;
 import com.github.fabriciolfj.paymentcard.service.PaymentCreateService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +35,9 @@ public class PaymentController {
         return new PaymentCreateResponse(result.getCode());
     }
 
-    @GetMapping("/{code}")
+    @GetMapping("/{code}/test")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public PaymentSummary getPayment(@PathVariable @NotNull final String code) {
+    public PaymentSummary getPayment(@PathVariable final String code) {
         log.info("code received {}", code);
         return findSummaryPaymentService.findByCode(code);
     }
