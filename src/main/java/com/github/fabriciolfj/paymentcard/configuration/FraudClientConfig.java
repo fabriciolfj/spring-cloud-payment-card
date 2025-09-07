@@ -59,4 +59,6 @@ public class FraudClientConfig {
             default -> throw new FraudFailException();
         }
     }
+
+
 }
